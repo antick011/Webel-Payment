@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Webel Konnagar Payment Portal</title>
     <style>
+        /* Base Styles */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #f8f9fc;
@@ -23,28 +24,30 @@
         .header-container {
             display: flex;
             align-items: center;
-            gap: 15px; /* space between logo and text */
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap; /* wraps for small screens */
         }
 
         .logo {
-            max-height: 60px;
+            max-height: 50px;
             display: block;
         }
 
         header h1 {
             margin: 0;
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 600;
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%); /* perfectly centers the title */
+            text-align: center;
+            flex: 1 1 100%;
         }
 
         .container {
-            max-width: 600px;
-            margin: 30px auto;
+            max-width: 500px;
+            width: 90%;
+            margin: 20px auto;
             background: white;
-            padding: 25px;
+            padding: 20px;
             border-radius: 12px;
             box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
         }
@@ -52,6 +55,7 @@
         h2 {
             color: #0066cc;
             margin-bottom: 10px;
+            font-size: 1.3rem;
         }
 
         form {
@@ -62,6 +66,7 @@
             display: block;
             margin-bottom: 6px;
             font-weight: 600;
+            font-size: 0.9rem;
         }
 
         input, button {
@@ -70,7 +75,8 @@
             margin-bottom: 15px;
             border-radius: 8px;
             border: 1px solid #ccc;
-            font-size: 15px;
+            font-size: 14px;
+            box-sizing: border-box;
         }
 
         input:focus {
@@ -83,7 +89,7 @@
             background: #0066cc;
             color: white;
             border: none;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: bold;
             cursor: pointer;
             transition: 0.3s;
@@ -98,6 +104,7 @@
             font-weight: bold;
             margin: 10px 0;
             text-align: center;
+            font-size: 0.9rem;
         }
 
         .qr-section {
@@ -110,14 +117,43 @@
             border-radius: 12px;
             padding: 10px;
             background: #fff;
+            max-width: 100%;
+            height: auto;
         }
 
         .footer {
             text-align: center;
-            font-size: 14px;
+            font-size: 13px;
             color: #666;
             padding: 15px;
             margin-top: 20px;
+        }
+
+        /* Responsive Media Queries */
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 18px;
+            }
+            .container {
+                padding: 15px;
+            }
+            input, button {
+                font-size: 13px;
+                padding: 8px;
+            }
+            label {
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 320px) {
+            header h1 {
+                font-size: 16px;
+            }
+            input, button {
+                font-size: 12px;
+                padding: 6px;
+            }
         }
     </style>
 </head>
@@ -126,10 +162,8 @@
         <div class="header-container">
             <img src="static/logo.png" alt="Logo" class="logo">
             <h1>Webel Konnagar Payment Portal</h1>
-            <div class="spacer"></div>
         </div>
     </header>
-
 
     <div class="container">
         <!-- Search Form -->
