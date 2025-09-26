@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webel Konnagar Payment Portal</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fc;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        header {
+            background: #004aad;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            gap: 15px; /* space between logo and text */
+        }
+
+        .logo {
+            max-height: 60px;
+            display: block;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%); /* perfectly centers the title */
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 30px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #0066cc;
+            margin-bottom: 10px;
+        }
+
+        form {
+            margin-top: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 15px;
+        }
+
+        input:focus {
+            border-color: #0066cc;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0,102,204,0.4);
+        }
+
+        button {
+            background: #0066cc;
+            color: white;
+            border: none;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #004a99;
+        }
+
+        .error {
+            color: red;
+            font-weight: bold;
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        .qr-section {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .qr-section img {
+            border: 3px solid #eee;
+            border-radius: 12px;
+            padding: 10px;
+            background: #fff;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            padding: 15px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <img src="static/logo.png" alt="Logo" class="logo">
+            <h1>Webel Konnagar Payment Portal</h1>
+            <div class="spacer"></div>
+        </div>
+    </header>
+
+
+    <div class="container">
+        <!-- Search Form -->
+        <form method="POST">
+            <label for="course_name">Search Course:</label>
+            <input type="text" name="course_name" list="course_list" placeholder="Enter course name..." required>
+            <datalist id="course_list">
+                {% for c in courses %}
+                <option value="{{ c }}"></option>
+                {% endfor %}
+            </datalist>
+            <button type="submit" name="search_course">Find Course</button>
+        </form>
+
+        {% if error %}
+        <p class="error">{{ error }}</p>
+        {% endif %}
+
+        {% if course %}
+        <hr>
+        <h2>{{ course }} - ₹{{ amount }}</h2>
+
+        <div class="qr-section">
+            <p>Scan the QR code below to make payment:</p>
+            {% if qr_base64 %}
+            <img src="data:image/png;base64,{{ qr_base64 }}" alt="UPI QR" width="220">
+            {% endif %}
+        </div>
+
+        <h3>Enter Your Details</h3>
+        <form method="POST">
+            <input type="hidden" name="course_name" value="{{ course }}">
+            <input type="hidden" name="amount" value="{{ amount }}">
+
+            <label>Full Name</label>
+            <input type="text" name="full_name" placeholder="Enter your full name" required>
+
+            <label>Father's Name</label>
+            <input type="text" name="father_name" placeholder="Enter your father's name" required>
+
+            <label>Transaction ID</label>
+            <input type="text" name="transaction_id" placeholder="Enter UPI transaction ID" required>
+
+            <button type="submit">Submit & Send via WhatsApp</button>
+        </form>
+        {% endif %}
+    </div>
+
+    <div class="footer">
+        © 2025 Webel Konnagar. All Rights Reserved.
+    </div>
+</body>
+</html>
